@@ -1,7 +1,7 @@
 
 import './App.css';
 import Frontpage from './Componets/Frontpage/Frontpage';
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Stocks from './Componets/Stocks/Stocks';
 import Users from './Componets/Users/Users';
 import AddUser from './Componets/AddUser/AddUser';

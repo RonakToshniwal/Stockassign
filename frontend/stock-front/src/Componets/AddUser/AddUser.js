@@ -3,7 +3,6 @@
 import './AddUser.css';
 import axios from "axios";
 import { useState } from 'react';
-import AddUserToDb from '../../UserServices/AddUser/AddUserToDb';
 
 function AddUser() {
   const [title, setTitle] = useState('')
@@ -36,16 +35,13 @@ function AddUser() {
   return (
     <div className="form">
         
-        <form onSubmit={onSubmithandler}>
-        <label>
-            Name:
-            <input type="text" name="name" onChange={(e)=>setTitle(e.target.value)} />
-        </label>
-        <label>
-            age:
-            <input type="number" name="age" onChange={(e)=>setAge(e.target.value)} />
-        </label>
-        <input type="submit" value="Submit" />
+        <form className='form-group' onSubmit={onSubmithandler}>
+        <label>Name:</label> <br/>
+         <input type="text" name="name" onChange={(e)=>setTitle(e.target.value)} /><br/>
+        <label>age:</label><br/>
+        <input type="number" name="age" onChange={(e)=>setAge(e.target.value)} /><br/>
+        
+        <input className='sub'  type="submit" value="Submit" />
         </form>
 
      
