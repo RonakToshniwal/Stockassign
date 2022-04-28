@@ -105,8 +105,10 @@ def showAllStocks():
         con.close()
         return data
 
-@app.route('/stock/<name>/', methods = ['GET'])
-def stockDetails(name) :
+@app.route('/stock', methods = ['POST'])
+def stockDetails() :
+    req = request.json
+    name = req["symbol"]
     index = random.randint(0,6)
     url = f"https://api.twelvedata.com/quote?symbol={name}&apikey={keys[index]}"
     response = requests.get(url).json()
