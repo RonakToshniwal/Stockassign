@@ -34,6 +34,12 @@ con.execute('CREATE TABLE IF NOT EXISTS Stocks(id INTEGER PRIMARY KEY AUTOINCREM
 con.commit()
 con.close()
 
+con = sqlite3.connect('Stocks.db')
+cur = con.cursor()
+con.execute('CREATE TABLE IF NOT EXISTS UserStocks(id INTEGER PRIMARY KEY AUTOINCREMENT,user_id INTEGER,Stock TEXT)')
+con.commit()
+con.close()
+
 app=Flask(__name__)
 CORS(app)
 
@@ -110,6 +116,19 @@ def stockDetails(name) :
     url = f"https://api.twelvedata.com/quote?symbol={name}&apikey={keys[index]}"
     response = requests.get(url).json()
     return response
+
+@app.route('/addstock', methods = ['POST'])
+def addStock() :
+    if request.method == 'POST':
+        req = request.json
+        id = req["id"]
+        symbol = req["symbol"]
+        con = sqlite3.connect('Stocks.db')
+        cur = con.cursor()
+        cur.execute('INSERT INTO UserStocks values(NULL,?,?)',(id,symbol))
+        con.commit()
+        con.close()
+    return {"message" : "added stock successfully"}
 
 
 @app.route('/users', methods = ['GET'])
