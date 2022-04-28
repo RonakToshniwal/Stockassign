@@ -22,16 +22,19 @@ function UserStocks(props) {
 
   },[])
 function onClickDelete(e){
+  console.log("THIS IS THE VALUE")
   console.log(id,e.target.value)
   axios({
     method: 'POST',
     url: 'http://127.0.0.1:5000/deleteuserstocks',
     data: {
       id: e.target.value,
-      symbol:sname
+      symbol: sname
     },
     headers: {'Content-Type': 'application/json'}
-  }).then(window.location.reload())
+  }).then(
+    e.preventDefault()
+  )
 
 }
 
@@ -48,12 +51,12 @@ function onSubmithandler(e){
   window.location.reload();
   e.preventDefault()
 }
-console.log(data)
+//console.log(data)
 
 
 const location = useLocation();
 const id = location.state;
-console.log(id)
+// console.log(id)
     
 if (data.value==='none'){
 return ( 
