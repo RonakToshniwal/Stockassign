@@ -3,11 +3,12 @@
 import './AddUser.css';
 import axios from "axios";
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 function AddUser() {
   const [title, setTitle] = useState('')
   const [age, setAge] = useState('')
-
+  let navigate = useNavigate();
 
 
   function onSubmithandler(e){
@@ -21,11 +22,8 @@ function AddUser() {
       },
       headers: {'Content-Type': 'application/json'}
     })
+    navigate("/users")
     
-
-
-
-    e.preventDefault()
   }
 
 
