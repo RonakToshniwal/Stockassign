@@ -37,7 +37,7 @@ useEffect(()=>{
   return (
     <div className="User-page">
       
-        <Link to="/adduser"><button>Add User</button></Link>
+        
         <table>
           <thead>
             <tr>
@@ -63,8 +63,11 @@ useEffect(()=>{
                 <td>{users.users[key].id}</td>
                 <td>{users.users[key].name}</td>
                 <td>{users.users[key].age}</td>
-                <td><Link to= '/userstocks' state = {users.users[key].id} ><button>Show</button></Link></td>
-                <td><button value= {users.users[key].id} onClick={onDeleteClick} >Delete</button></td>
+                <td><Link to= '/userstocks' state = {users.users[key].id} >
+                  <button className='btn-outline-success'>Show</button>
+                  </Link></td>
+                <td><button value= {users.users[key].id} onClick={onDeleteClick} 
+                className="btn-outline-danger" >Delete</button></td>
             </tr>
            
         
@@ -73,6 +76,11 @@ useEffect(()=>{
 }
     </tbody>
     </table>
+    <div className='adduser'>
+    <h1>Want to add a new user? Here you go !</h1>
+
+    <Link to="/adduser"><button className='del-user btn-danger'>Add User</button></Link>
+    </div>
 
         
         
