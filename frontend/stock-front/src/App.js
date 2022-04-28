@@ -1,12 +1,12 @@
 
 import './App.css';
-import Frontpage from './Componets/Frontpage/Frontpage';
+import Frontpage from './Components/Frontpage/Frontpage';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Stocks from './Componets/Stocks/Stocks';
-import Users from './Componets/Users/Users';
-import AddUser from './Componets/AddUser/AddUser';
-import UserStocks from './Componets/UserStocks/UserStocks';
-import SearchStock from './Componets/searchstock/SearchStock';
+import Stocks from './Components/Stocks/Stocks';
+import Users from './Components/Users/Users';
+import AddUser from './Components/AddUser/AddUser';
+import UserStocks from './Components/UserStocks/UserStocks';
+import SearchStock from './Components/searchstock/SearchStock';
 
 function App() {
   return (
