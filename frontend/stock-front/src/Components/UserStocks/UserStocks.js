@@ -27,8 +27,8 @@ function onClickDelete(e){
     method: 'POST',
     url: 'http://127.0.0.1:5000/deleteuserstocks',
     data: {
-      id: e.target.value,
-      symbol:sname
+      id: id,
+      symbol:e.target.value
     },
     headers: {'Content-Type': 'application/json'}
   }).then(window.location.reload())
