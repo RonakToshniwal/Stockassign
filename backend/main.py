@@ -1,9 +1,11 @@
 import json
 import sqlite3
+import requests
+import random
 from urllib import response
 from flask_cors import CORS
 from flask import Flask, jsonify,make_response,render_template,request, url_for,redirect
-import requests
+
 
 con = sqlite3.connect('users.db')
 print("Users Database connected")
@@ -35,7 +37,15 @@ con.close()
 app=Flask(__name__)
 CORS(app)
 
-key = "88e143bda89b4424aef8a3ad4dd67abf"
+keys = ["bb2f3419c51249999343ac278e5c60e6",
+"b8dd585863da45b08eb42e7ce11b2830",
+"f189adb0ebd74874b4ca81e9a551c208",
+"357ecb547411476e896a8980a3f22e7b",
+"43f6eef0fb2e485485919c2609cf73bd",
+"0daaf6326f784c05b8280d5da7c099a4",
+"88e143bda89b4424aef8a3ad4dd67abf"]
+
+
 
 @app.route('/')
 def index():
@@ -70,7 +80,8 @@ def showAllStocks():
         for stock in rows:
             stock_symbol = stock[2]
             print(stock_symbol)
-            url = f"https://api.twelvedata.com/price?symbol={stock_symbol}&apikey={key}"
+            index = random.randint(0,6)
+            url = f"https://api.twelvedata.com/price?symbol={stock_symbol}&apikey={keys[index]}"
             response = requests.get(url).json()
             # print(response)
             data[stock[1]] = response['price']
@@ -80,11 +91,26 @@ def showAllStocks():
 
 @app.route('/stock/<name>/', methods = ['GET'])
 def stockDetails(name) :
-    url = f"https://api.twelvedata.com/quote?symbol={name}&apikey={key}"
+    url = f"https://api.twelvedata.com/quote?symbol={name}&apikey={keys[index]}"
     response = requests.get(url).json()
     return response
-    
 
+
+@app.route('/users', methods = ['GET'])
+def getUsers() :
+    con = sqlite3.connect('users.db')
+    cur = con.cursor()
+    cur.execute('SELECT * FROM users')
+    rows = cur.fetchall()
+    data = {}
+    list = []
+    for row in rows:
+        print(row[1])    
+        instance = {  "id" : row[0] , "name" : row[1] ,"age" : row[2]} 
+        list.append(instance)
+    data["users"] = list
+    print(data)
+    return data
 
 if __name__ == '__main__':
     app.run(debug=True)
