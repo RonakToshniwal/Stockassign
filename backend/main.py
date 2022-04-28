@@ -1,5 +1,6 @@
 import json
 import sqlite3
+from urllib.parse import uses_relative
 import requests
 import random
 from urllib import response
@@ -113,6 +114,7 @@ def showAllStocks():
 
 @app.route('/stock/<name>/', methods = ['GET'])
 def stockDetails(name) :
+    index = random.randint(0,6)
     url = f"https://api.twelvedata.com/quote?symbol={name}&apikey={keys[index]}"
     response = requests.get(url).json()
     return response
@@ -130,6 +132,26 @@ def addStock() :
         con.close()
     return {"message" : "added stock successfully"}
 
+@app.route('/getuserstocks', methods = ['GET'])
+def getUserStocks() :
+    if request.method == 'GET':
+        req = request.json
+        id = req["id"]
+        con = sqlite3.connect('Stocks.db')
+        cur = con.cursor()
+        cur.execute('Select Stock from UserStocks where user_id= ?',(id,))
+        userStocks = cur.fetchall()
+        print(userStocks)
+        data = {}
+        for userStock in userStocks:
+            index = random.randint(0,6)
+            url = f"https://api.twelvedata.com/price?symbol={userStock[0]}&apikey={keys[index]}"
+            response = requests.get(url).json()
+            data[userStock[0]] = response
+        con.commit()
+        con.close()
+        print(data)
+    return data
 
 @app.route('/users', methods = ['GET'])
 def getUsers() :
