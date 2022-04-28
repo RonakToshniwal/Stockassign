@@ -29,7 +29,7 @@ useEffect(()=>{
   }).then(window.location.reload(false))
  }
 
-  if (Object.keys(users).length==0){
+  if (Object.keys(users).length===0){
     return (<div>Waiting for update</div>)
   }
   else

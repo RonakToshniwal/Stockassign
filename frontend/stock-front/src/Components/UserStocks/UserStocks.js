@@ -19,9 +19,21 @@ function UserStocks(props) {
       },
       headers: {'Content-Type': 'application/json'}
     }).then( (res) =>{setdata(res.data)})
-    console.log(data)
 
   },[])
+function onClickDelete(e){
+  console.log(id,e.target.value)
+  axios({
+    method: 'POST',
+    url: 'http://127.0.0.1:5000/deleteuserstocks',
+    data: {
+      id: e.target.value,
+      symbol:sname
+    },
+    headers: {'Content-Type': 'application/json'}
+  }).then(window.location.reload())
+
+}
 
 function onSubmithandler(e){
   axios({
@@ -60,6 +72,7 @@ else
             <tr>
                 <th>Stock Name</th>
                 <th>Last Traded Price</th>
+                <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -72,6 +85,8 @@ else
             <tr key ={key}>
                 <td>{key}</td>
                 <td>{data[key].price}</td>
+                <td><button value ={key} 
+                onClick= {onClickDelete}>Delete</button></td>
             </tr>
            
         
