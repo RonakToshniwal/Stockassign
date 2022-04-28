@@ -29,12 +29,10 @@ function onClickDelete(e){
     url: 'http://127.0.0.1:5000/deleteuserstocks',
     data: {
       id: e.target.value,
-      symbol: sname
+      symbol:sname
     },
     headers: {'Content-Type': 'application/json'}
-  }).then(
-    e.preventDefault()
-  )
+  }).then(window.location.reload())
 
 }
 
