@@ -1,4 +1,4 @@
-form{
+.form-add{
     display: flexbox;
     justify-content: center;
     margin-left: 20%;
@@ -10,7 +10,7 @@ form{
     border-radius: 10px;
 }
 
-input {
+.form-add input {
     width: 100%;
     margin-top:10px;
     margin-right: 20%;

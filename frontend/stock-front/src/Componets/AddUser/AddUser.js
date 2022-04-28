@@ -31,9 +31,9 @@ function AddUser() {
 
 
   return (
-    <div className="form">
+    <div className="form-add">
         
-        <form className='form-group' onSubmit={onSubmithandler}>
+        <form onSubmit={onSubmithandler}>
         <label>Name:</label> <br/>
          <input type="text" name="name" onChange={(e)=>setTitle(e.target.value)} /><br/>
         <label>age:</label><br/>

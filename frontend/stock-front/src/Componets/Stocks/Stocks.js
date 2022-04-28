@@ -27,17 +27,20 @@ else
   return (
     <div className="stock-table">
       <table>
+        <thead>
             <tr>
                 <th>Stock Name</th>
                 <th>Last Traded Price</th>
             </tr>
+          </thead>
+          <tbody>
         { Object.keys(users).map(function(key, index) {
           return(
   
 
        
         
-            <tr>
+            <tr key ={key}>
                 <td>{key}</td>
                 <td>{users[key]}</td>
             </tr>
@@ -47,6 +50,7 @@ else
         })
         
 }
+</tbody>
 </table>
 
      
