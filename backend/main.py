@@ -160,5 +160,18 @@ def getUsers() :
     data["users"] = list
     return data
 
+@app.route('/deleteuserstocks', methods = ['POST'])
+def deleteUserStocks() :
+    if request.method == 'POST':
+        req = request.json
+        id = req["id"]
+        symbol = req["symbol"]
+        con = sqlite3.connect('Stocks.db')
+        cur = con.cursor()
+        cur.execute('DELETE FROM UserStocks where user_id=? and Stock=?',(id,symbol))
+        con.commit()
+        con.close()
+    return {"message" : "stock deleted successfully"}
+
 if __name__ == '__main__':
     app.run(debug=True)
