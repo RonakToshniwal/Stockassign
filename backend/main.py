@@ -102,7 +102,6 @@ def showAllStocks():
             response = requests.get(url).json()
             # print(response)
             data[stock[1]] = response['price']
-        print(data)
         con.close()
         return data
 
@@ -127,16 +126,15 @@ def addStock() :
         con.close()
     return {"message" : "added stock successfully"}
 
-@app.route('/getuserstocks', methods = ['GET'])
+@app.route('/getuserstocks', methods = ['POST'])
 def getUserStocks() :
-    if request.method == 'GET':
+    if request.method == 'POST':
         req = request.json
         id = req["id"]
         con = sqlite3.connect('Stocks.db')
         cur = con.cursor()
         cur.execute('Select Stock from UserStocks where user_id= ?',(id,))
         userStocks = cur.fetchall()
-        print(userStocks)
         data = {}
         for userStock in userStocks:
             index = random.randint(0,6)
@@ -145,7 +143,6 @@ def getUserStocks() :
             data[userStock[0]] = response
         con.commit()
         con.close()
-        print(data)
     return data
 
 @app.route('/users', methods = ['GET'])
@@ -161,7 +158,6 @@ def getUsers() :
         instance = {  "id" : row[0] , "name" : row[1] ,"age" : row[2]} 
         list.append(instance)
     data["users"] = list
-    print(data)
     return data
 
 if __name__ == '__main__':
