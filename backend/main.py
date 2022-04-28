@@ -69,6 +69,22 @@ def addUser() :
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response  
 
+@app.route('/user/delete', methods = ['POST'])
+def deleteUser() :
+    if request.method == 'POST':
+        req = request.json
+        id = req["id"]
+
+        con= sqlite3.connect('users.db')
+        cur = con.cursor()
+        cur.execute('DELETE FROM users where id = ?',(id,))
+        con.commit()
+        con.close()
+        msg = "User Deleted"
+        response =  jsonify( {"message" : msg} )
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response  
+
 @app.route('/stock/all/',methods = ['GET'])
 def showAllStocks():
     if request.method == 'GET':
